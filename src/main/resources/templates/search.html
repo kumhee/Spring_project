@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+	</head>
+<body>
+	<h1> 상품검색 </h1>
+	<form name="frm">
+		<input name="query">
+		<button>검색</button>
+	</form>
+	
+	<table id="tbl_shop" border="1"></table>
+	
+	<div>
+		<button id="prev"> 이전 </button>
+		<span id="page">1</span>
+		<button id="next"> 다음 </button>
+	</div>
+</body>
+
+<script id="temp_shop" type="x-handlebars-template">
+	{{#each items}}
+		<tr>
+			<td class="productId"> {{productId}} </td>
+			<td><img class="image" src="{{image}}" width="30">  </td>
+			<td class="title"> {{{title}}} </td>
+			<td class="lprice"> {{lprice}} </td>
+			<td class="maker"> {{maker}} </td>
+			<td><button class="btn_save"> 저장 </button></td>
+		</tr>
+	{{/each}}
+</script>
+
+
+
+<script>
+	let page = 1;
+	let size = 5;
+	let query = "노트북";
+	
+	$("#tbl_shop").on("click", ".btn_save", function() {
+		const tr = $(this).parent().parent();
+		const productId = tr.find(".productId").text();
+		const image = tr.find(".image").attr("src");
+		const title = tr.find(".title").text();
+		const lprice = tr.find(".lprice").text();
+		const maker = tr.find(".maker").text();
+		const data = {productId, image, title, lprice, maker};
+		console.log(data);
+		if(confirm("저장하시겠습니까?")) {
+			$.ajax({
+				type: "post",
+				url: "/shop/insert",
+				data: JSON.stringify(data),
+				contentType: "application/JSON",
+				success: function(){
+					alert("저장이 완료되었습니다.")
+				}
+			})
+		}
+	})
+	
+	$(frm).on("submit", function(e) {
+	    e.preventDefault();
+	    query = $(frm.query).val();
+	    page = 1;
+	    getList();
+	});
+
+	$("#next").on("click", function() {
+		page ++;
+		getList();
+	})
+	
+	$("#prev").on("click", function() {
+		page --;
+		getList();
+	})
+	
+	getList();
+	function getList(){
+		$.ajax({
+			type: "get",
+			url: "/search/list.json",
+			dataType: "json",
+			data: {page, size, query},
+			success: function(data) {
+				console.log(data);
+				const temp = Handlebars.compile($("#temp_shop").html());
+				$("#tbl_shop").html(temp(data));
+				$("#page").html(page);
+			}
+		})
+	}
+</script>
+</html>

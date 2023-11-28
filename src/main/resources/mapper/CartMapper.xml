@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.CartMapper">
+	<select id="sum" resultType="string">
+		select format(sum(lprice*qnt),0) as fntsum
+		from view_cart
+		where uid = #{uid}
+	</select>
+
+	<update id="update_qnt">
+		update cart
+		set qnt = #{qnt}
+		where cid = #{cid}
+	</update>
+
+	<update id="update">
+		update cart
+		set qnt = qnt + #{qnt}
+		where pid = #{pid} and uid = #{uid}
+	</update>
+
+	<select id="check" resultType="int">
+		select count(*)
+		from cart
+		where pid = #{pid} and uid = #{uid}
+	</select>
+
+	<delete id="delete">
+		delete from cart
+		where cid = #{cid}
+	</delete>
+
+	<insert id="insert">
+		insert into cart(pid, uid)
+		values (#{pid}, #{uid})
+	</insert>
+
+	<select id="total" resultType="int">
+		select count(*)
+		from cart
+		where uid = #{uid}
+	</select>
+
+    <select id="list" resultType="hashmap">
+		select *, lprice*qnt as sum, format(lprice*qnt, 0) as fmtsum 
+		from view_cart
+		where uid = #{uid}
+		order by regdate desc
+		limit #{start}, #{size}
+    </select>
+</mapper>

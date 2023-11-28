@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ReviewMapper">
+	<update id="update">
+		update review
+		set body = #{body}, regdate = now()
+		where cid = #{cid}
+	</update>
+
+	<select id="read" resultType="com.example.domain.ReviewVO"> 
+		select * from review
+		where cid = #{cid}
+	</select>
+
+	<update id="update_reviewcnt">
+		update shop
+		set reviewcnt = reviewcnt + #{amount}
+		where pid = #{pid}
+	</update>
+
+	<delete id="delete">
+		delete from review
+		where cid = #{cid}
+	</delete>
+
+	<select id="total" resultType="int">
+		select count(*)
+		from review 
+		where pid = #{pid}
+	</select>
+
+	<select id="list" resultType="hashmap">
+		select *
+		from review
+		where pid = #{pid}
+		order by cid desc
+		limit #{start}, #{size};
+	</select>
+
+    <insert id="insert">
+        insert into review(pid, uid, body)
+        values (#{pid}, #{uid}, #{body})
+    </insert>
+</mapper>
