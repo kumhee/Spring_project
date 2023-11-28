@@ -1,13 +1,104 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* font */
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* deafultCSS */
+*{margin:0; padding:0; vertical-align: top;}
+li{list-style:none;}
+a{text-decoration:none !important; }
+img{border:0; max-width:100%;}
+body { font-family: 'GmarketSansMedium', 'Noto Sans KR', sans-serif; background: #ffffff; max-width: 1920px; min-width: 320px; margin: 0 auto;}
+
+/* 공통CSS */
+.wrap {width: 100%;}
+.contents_title_wrap {width: 100%; margin: 50px auto;}
+.contents_title {font-size: 35px; text-align: center; font-family: 'GmarketSansMedium'}
+.contents_wrap {width: 100%; margin: 70px auto;}
+
+/* 쌤이 주신 css */
+.ellipsis { overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+.ellipsis2 {overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
+.input-group-text { width: 120px; justify-content: center; }
+.photo { border-radius: 50%; border: 1px solid gray; cursor: pointer; }
+
+/* ---------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+/* FooterPage */
+.footer {width: 100%; height: 180px; border-top: 1px solid #ccc; display: flex; justify-content: center; align-items: center;}
+.footer_article {font-size: 12px;}
+
+/* NaviPage */
+.nav-link { font-weight: 400 !important; font-family: 'Noto Sans KR';}
+
+/* SearchPage */
+.search_inputbox_wrap {width: 100%; display: flex; justify-content: space-between; margin-bottom: 40px;}
+.search_inputbox_top form .form-control { max-width: 200px; }
+.search_inputbox_btm p {font-size: 14px;}
+.search_table td {vertical-align: middle;}
+.search_pagination {margin-top: 90px;}
+
+/* ShopList */
+.list_table td {vertical-align: middle;}
+
+/* ShopUpdate */
+.update_cardwrap {display: flex; flex-wrap: wrap; justify-content: center; align-items: center;}
+.update_card {width: 60%; margin: 0 auto;}
+.update_card form {padding: 40px; }
+.update_card_inputgroup {width: 70%; margin: 0 auto;}
+.buttongroup {text-align: center; margin-top: 30px;}
+
+.update_img_wrap {width: 60%; margin: 0 auto; display: flex; align-items: center; justify-content: center;}
+.update_img {padding: 40px; border: 1px solid #ccc; border-radius: 30px;}
+.update_img:first-child {margin-right: 50px;}
+.update_img_btn {display: flex; justify-content: center; margin-top: 30px;}
+.update_img p {text-align: center; font-family: 'GmarketSansMedium'; font-size: 20px; margin-bottom: 30px;}
+
+/* LoginPage */
+.login_save { display: flex; align-items: center; margin-top: 10px; font-size: 14px;}
+.login_save input {margin-right: 8px; }
+
+/* HomePage */
+.section1_wrap {width: 100%; height: auto; display: flex; flex-wrap: wrap;}
+.section1_article {font-size: 14px;}
+.hompage_card_wrap { display: flex; flex-wrap: wrap; }
+.hompage_card { cursor: pointer; padding: 20px; border: 1px solid #ccc; border-radius: 10px; width: 100%; }
+.hompage_card img { width: 100%; height: 150px; object-fit: cover; }
+.hompage_card .card-body { height: 240px !important; }
+.hompage_card span { font-size: 12px; color: #000; }
+.home_pagination { width: 100%; margin: 0 auto; }
+.like {margin-top: 6px;}
+
+/* ShopInfo */
+.info_box_wrap {display: flex; flex-wrap: wrap; width: 100%;}
+.info_box {width: 50%; margin: 0 auto; border: 1px solid #ccc; border-radius: 30px; padding: 40px;}
+.info_img_wrap {margin-bottom: 30px; display: flex; justify-content: center; align-items: center;}
+.info_article_title {font-size: 20px; letter-spacing: -1px;}
+.info_btn_wrap {display: flex; justify-content: center;}
+.info_btn_wrap button {margin-right: 15px;}
+.info_btn_wrap button:last-child {margin-right:0}
+.heart {color: red; cursor: pointer;}
+.info_article_wrap span{margin-left: 10px;}
+.info_article_wrap span:last-child{margin-left: 0; color: #666;}
+
+/* ReviewPage */
+.review_count {font-size: 14px; font-weight: bold; margin-bottom: 20px;}
+.review_body {letter-spacing: -1px;}
+.review_body span {font-weight: bold;}
+.review_bodybtn {margin-top: 20px;}
+.review_bodybtn button:first-child {margin-right: 8px;}
+
+/* CartList */
+.cart_input_group { max-width: 130px;  margin: 0 auto;}
+.cartlist_top_wrap {width: 100%; display: flex; justify-content: space-between; margin-bottom: 20px;}
+.cart_sum {width: 100%; height: 70px; line-height: 70px; border-radius: 15px; padding: 0 20px; font-size: 14px; font-weight: bold; background: #eee;}
+
+
+
+
+
