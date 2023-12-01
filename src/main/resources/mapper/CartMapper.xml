@@ -42,7 +42,7 @@
 	</select>
 
     <select id="list" resultType="hashmap">
-		select *, lprice*qnt as sum, format(lprice*qnt, 0) as fmtsum 
+		select *, (lprice*qnt) as sum, format(lprice*qnt, 0) as fmtsum 
 		from view_cart
 		where uid = #{uid}
 		order by regdate desc

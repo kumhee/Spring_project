@@ -62,16 +62,16 @@ public class ShopServiceImpl implements ShopService {
 
     @Transactional
 	@Override
-	public void insertFavorite(int pid, String uid) {
-		dao.insertFavorite(pid, uid);
-		dao.updateFavorite(pid, 1);
+	public void insertFavorites(int pid, String uid) {
+		dao.insertFavorites(pid, uid);
+		dao.updateFavorites(pid, 1);
 	}
 
     @Transactional
 	@Override
-	public void deleteFavorite(int pid, String uid) {
-		dao.deleteFavorite(pid, uid);
-		dao.updateFavorite(pid, -1);
+	public void deleteFavorites(int pid, String uid) {
+		dao.deleteFavorites(pid, uid);
+		dao.updateFavorites(pid, -1);
 	}
 }
 

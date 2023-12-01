@@ -12,11 +12,10 @@ import com.example.domain.ShopVO;
 
 @Repository
 public class ShopDAOImpl implements ShopDAO{
-
 	@Autowired
 	SqlSession session;
 	String namespace="com.example.mapper.ShopMapper";
-			
+	
 	@Override
 	public void insert(ShopVO vo) {
 		session.insert(namespace + ".insert", vo);
@@ -65,34 +64,43 @@ public class ShopDAOImpl implements ShopDAO{
 
 	@Override
 	public HashMap<String, Object> read(int pid, String uid) {
-		HashMap<String, Object> map = new HashMap<>();
+		HashMap<String,Object> map=new HashMap<>();
 		map.put("pid", pid);
 		map.put("uid", uid);
 		return session.selectOne(namespace + ".info", map);
 	}
 
 	@Override
-	public void insertFavorite(int pid, String uid) {
-		HashMap<String, Object> map = new HashMap<>();
+	public void insertFavorites(int pid, String uid) {
+		HashMap<String,Object> map=new HashMap<>();
 		map.put("pid", pid);
 		map.put("uid", uid);
-		session.insert(namespace + ".insert_favorite", map);
+		session.insert(namespace + ".insert_favorites", map);
 	}
 
 	@Override
-	public void deleteFavorite(int pid, String uid) {
-		HashMap<String, Object> map = new HashMap<>();
+	public void deleteFavorites(int pid, String uid) {
+		HashMap<String,Object> map=new HashMap<>();
 		map.put("pid", pid);
 		map.put("uid", uid);
-		session.delete(namespace + ".delete_favorite", map);
+		session.delete(namespace + ".delete_favorites", map);
 	}
 
 	@Override
-	public void updateFavorite(int pid, int amount) {
-		HashMap<String, Object> map = new HashMap<>();
+	public void updateFavorites(int pid, int amount) {
+		HashMap<String,Object> map=new HashMap<>();
 		map.put("pid", pid);
 		map.put("amount", amount);
-		session.update(namespace + ".update_favorite", map);
+		session.update(namespace + ".update_favorites", map);
 	}
 
+	@Override
+	public void updateContent(ShopVO vo) {
+		session.update(namespace + ".update_content", vo);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> chart1() {
+		return session.selectList(namespace + ".chart1");
+	}
 }

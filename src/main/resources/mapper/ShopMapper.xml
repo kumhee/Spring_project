@@ -1,79 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mapper.ShopMapper">
-	<update id="update_favorite">
+	<select id="chart1" resultType="hashmap">
+		select r.pid, title, count(*) as count
+		from review r, shop s
+		where r.pid=s.pid
+		group by r.pid
+		order by pid asc;
+	</select>
+	<update id="update_content">
 		update shop
-		set fcnt = fcnt + #{amount}
-		where pid = #{pid}
+		set content=#{content}
+		where pid=#{pid}
 	</update>
-
-	<delete id="delete_favorite">
-		delete from favorite
-		where uid = #{uid} and pid = #{pid}
+	<update id="update_favorites">
+		update shop
+		set fcnt=fcnt + #{amount}
+		where pid=#{pid}
+	</update>
+	<delete id="delete_favorites">
+		delete from favorites
+		where uid=#{uid} and pid=#{pid}
 	</delete>
-
-	<insert id="insert_favorite">
-		insert into favorite(uid, pid)
+	<insert id="insert_favorites">
+		insert into favorites(uid, pid)
 		values(#{uid}, #{pid})
 	</insert>
-
-    <select id="info" resultType="hashmap">
-        select *, date_format(regdate, '%Y-%m-%d %T') fmtdate, format(lprice, 0) fmtprice,
-        (select count(*) from favorite where uid=#{uid} and pid=#{pid}) ucnt
-        from shop
-        where pid = #{pid};
-    </select>
-
 	<update id="viewcnt">
 		update shop
-		set viewcnt = viewcnt + 1
-		where pid = #{pid}
+		set viewcnt=viewcnt + 1
+		where pid=#{pid}
 	</update>
-
 	<update id="image">
 		update shop
-		set image = #{image}
-		where pid = #{pid}
+		set image=#{image}
+		where pid=#{pid}
 	</update>
-
-    <!-- 상세 정보 조회 -->
-    <select id="read" resultType="hashmap">
-        select *, date_format(regdate, '%Y-%m-%d %T') fmtdate, format(lprice, 0) fmtprice
-        from shop
-        where pid = #{pid};
-    </select>
-
-    <!-- 상품 정보 수정 -->
-    <update id="update">
-        update shop
-        set title = #{title}, lprice = #{lprice}, maker = #{maker}
-        where pid = #{pid};
-    </update>
-    
+	<update id="update">
+		update shop
+		set title=#{title}, lprice=#{lprice}, maker=#{maker}
+		where pid=#{pid}
+	</update>
+	<select id="read" resultType="hashmap">
+		select *,date_format(regdate, '%Y-%m-%d %T') fmtdate, format(lprice,0) fmtprice 
+		from shop
+		where pid=#{pid}
+	</select>
+	<select id="info" resultType="hashmap">
+		select *,date_format(regdate, '%Y-%m-%d %T') fmtdate, format(lprice,0) fmtprice,
+		(select count(*) from favorites where uid=#{uid} and pid=#{pid}) ucnt
+		from shop
+		where pid=#{pid}
+	</select>
 	<delete id="delete">
-		delete from shop where pid = #{pid}
+		delete from shop where pid=#{pid}
 	</delete>
-
 	<select id="total" resultType="int">
 		select count(*)
-	    from shop
-	    where title like concat('%', #{query}, '%') or maker like concat('%', #{query}, '%');	
-	</select>
-	
-	<select id="list" resultType="hashmap">
-		select *, date_format(regdate, '%Y-%m-%d %T') fmtdate, format(lprice, 0) fmtprice
 		from shop
-		where title like concat('%', #{query}, '%') or maker like concat('%', #{query}, '%') 
+		where title like  concat('%',#{query},'%') or maker like concat('%',#{query},'%');
+	</select>
+	<select id="list" resultType="hashmap">
+		select *,date_format(regdate, '%Y-%m-%d %T') fmtdate, format(lprice,0) fmtprice 
+		from shop
+		where title like  concat('%',#{query},'%') or maker like concat('%',#{query},'%')
 		order by pid desc
 		limit #{start}, #{size};
 	</select>
-
+	<insert id="insert">
+		insert into shop(productId, title, image, lprice, maker)
+		values(#{productId}, #{title}, #{image}, #{lprice}, #{maker});
+	</insert>
 	<select id="check" resultType="int">
 		select count(*) from shop where productId=#{productId}
 	</select>
-
-    <select id="insert">
-        insert into shop(productId, title, image, lprice, maker)
-        values (#{productId}, #{title}, #{image}, #{lprice}, #{maker});
-    </select>
 </mapper>
