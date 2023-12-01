@@ -1,4 +1,4 @@
-.pagination { display: flex; justify-content: center; margin-top: 90px; }
+.pagination { display: flex; justify-content: center; margin-top: 60px; }
 ul { list-style: none; padding: 0; }
 ul.pagination li { display: inline-block; width: 30px; height: 30px; line-height: 33px; display: flex; justify-content: center; align-items: center; font-size: 1rem; }
 ul.pagination li:last-child { border-radius: 0 5px 5px 0; }

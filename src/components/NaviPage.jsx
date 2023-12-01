@@ -9,7 +9,7 @@ const NaviPage = () => {
   const path = location.pathname;
 
   const uid = getCookie("uid");
-  if(uid) sessionStorage.setItem("uid", uid);
+  if (uid) sessionStorage.setItem("uid", uid);
 
   const onLogout = (e) => {
     e.preventDefault();
@@ -27,9 +27,21 @@ const NaviPage = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/shop/search" className={path.indexOf('/shop/search') !== -1 && 'active'}>상품검색</Nav.Link>
-            <Nav.Link href="/shop/list" className={path.indexOf('/shop/') !== -1 && 'active'}>상품관리</Nav.Link>
-            <Nav.Link href="/cart/list" className={path.indexOf('/cart/') !== -1 && 'active'}>장바구니</Nav.Link>
+            {sessionStorage.getItem("uid") === 'admin' &&
+              <>
+
+                <Nav.Link href="/shop/search" className={path.indexOf('/shop/search') !== -1 && 'active'}>상품검색</Nav.Link>
+                <Nav.Link href="/shop/list" className={path.indexOf('/shop/') !== -1 && 'active'}>상품관리</Nav.Link>
+                <Nav.Link href="/admin/purchase" className={path.indexOf('/admin/') !== -1 && 'active'}>주문관리</Nav.Link>
+                <Nav.Link href="/admin/chart" className={path.indexOf('/chart/') !== -1 && 'active'}>그래프</Nav.Link>
+              </>
+            }
+            {(sessionStorage.getItem("uid") && sessionStorage.getItem("uid") !== 'admin') &&
+              <>
+                <Nav.Link href="/order/list" className={path.indexOf('/order/') !== -1 && 'active'}>주문목록</Nav.Link>
+                <Nav.Link href="/cart/list" className={path.indexOf('/cart/') !== -1 && 'active'}>장바구니</Nav.Link>
+              </>
+            }
 
             {/* <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -47,15 +59,15 @@ const NaviPage = () => {
           <Nav>
             {sessionStorage.getItem('uid') ?
               <>
-                <Nav.Link href="/user/login" className={path.indexOf('/user/login') !== -1 }>
+                <Nav.Link href="/user/mypage" className={path.indexOf('/user/mypage') !== -1}>
                   {sessionStorage.getItem('uid')} 님
                 </Nav.Link>
                 <Nav.Link href="/logout" onClick={onLogout}> Logout </Nav.Link>
               </>
               :
               <>
-                <Nav.Link href="/user/login" className={path.indexOf('/user/login') !== -1 }> Login </Nav.Link>
-                <Nav.Link eventKey={2} href="/" className={path.indexOf('/signup') !== -1 }> Signup </Nav.Link>
+                <Nav.Link href="/user/login" className={path.indexOf('/user/login') !== -1}> Login </Nav.Link>
+                <Nav.Link eventKey={2} href="/" className={path.indexOf('/signup') !== -1}> Signup </Nav.Link>
               </>
             }
           </Nav>

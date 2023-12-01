@@ -9,6 +9,11 @@ import HomePage from './HomePage'
 import ShopInfo from './shop/ShopInfo'
 import ReviewPage from './shop/ReviewPage'
 import CartList from './shop/CartList'
+import OrderPage from './shop/OrderPage'
+import MyPage from './user/MyPage'
+import OrderComplete from './order/OrderComplete'
+import OrderList from './order/OrderList'
+import ContentPage from './shop/ContentPage'
 
 const HeaderPage = () => {
   return (
@@ -27,8 +32,13 @@ const HeaderPage = () => {
         <Route path="/shop/info/:pid" element={<ShopInfo />} />
         <Route path="/shop/review/:pid" element={<ReviewPage />} />
         <Route path="/cart/list" element={<CartList />} />
+        <Route path="/cart/order" element={<OrderPage />} />
+
+        <Route path="/order/complete/:oid" element={<OrderComplete />} />
+        <Route path="/order/list" element={<OrderList />} />
 
         <Route path="/user/login" element={<LoginPage />} />
+        <Route path="/user/mypage" element={<MyPage />} />
       </Routes>
     </>
   )

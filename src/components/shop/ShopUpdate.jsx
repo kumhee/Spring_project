@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { InputGroup, Button, Form, Tab, Tabs } from 'react-bootstrap';
+import ContentPage from './ContentPage';
 
 const ShopUpdate = () => {
   const { pid } = useParams();
@@ -33,7 +34,7 @@ const ShopUpdate = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (window.confirm("수정하시겠습니까?"))
-    await axios.post("/shop/update", form);
+      await axios.post("/shop/update", form);
     alert("수정이 완료되었습니다.");
   }
 
@@ -43,10 +44,10 @@ const ShopUpdate = () => {
   }
 
   const onSaveImage = async () => {
-    if(!file) {
+    if (!file) {
       alert("변경할 이미지를 선택해주세요.")
     } else {
-      if(window.confirm("이미지를 변경하시겠습니까?")) {
+      if (window.confirm("이미지를 변경하시겠습니까?")) {
         // 이미지 저장 REST API
         const formData = new FormData();
         formData.append("file", file);
@@ -119,8 +120,8 @@ const ShopUpdate = () => {
               <div className='update_img'>
                 <p> 변경 후 </p>
                 <div className='text-center image_container'>
-                  <img onClick={() => ref_file.current.click()} src={src} width="100%" height="300px" alt="플레이스홀더 이미지" style={{cursor:'pointer'}}/>
-                  <input type="file" style={{ display: 'none' }} ref={ref_file} onChange={onChangeFile}/>
+                  <img onClick={() => ref_file.current.click()} src={src} width="100%" height="300px" alt="플레이스홀더 이미지" style={{ cursor: 'pointer' }} />
+                  <input type="file" style={{ display: 'none' }} ref={ref_file} onChange={onChangeFile} />
                 </div>
               </div>
             </div>
@@ -129,6 +130,10 @@ const ShopUpdate = () => {
             <div className='update_img_btn'>
               <Button variant='dark' onClick={onSaveImage}> 이미지저장 </Button>
             </div>
+          </Tab>
+
+          <Tab eventKey="content" title="상세설명">
+            <ContentPage pid={pid} form={form} setForm={setForm} getShop={getShop} />
           </Tab>
         </Tabs>
       </div>
